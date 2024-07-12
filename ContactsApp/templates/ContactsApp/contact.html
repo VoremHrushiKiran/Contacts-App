@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%}
+{{ contact.first_name }} {{ contact.last_name }} 
+{%endblock%}
+{% block content %}
+<div class="container mt-4">
+  <div class="card mb-3">
+    <div class="card-header bg-primary text-white">
+      <h5 class="card-title">{{ contact.first_name }} {{ contact.last_name }}</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          {% if contact.photo %}
+          <img src="{{ contact.photo.url }}" alt="{{ contact.photo.url }}'s Profile Photo" class="img-fluid rounded">
+          {% else %}
+            <img src="{% static 'default.jpg' %}" alt="Default Profile Photo" class="img-fluid rounded">
+          {% endif %}
+        </div>
+        <div class="col-md-8">
+          <p><strong>Email:</strong> {{ contact.email }}</p>
+          <p><strong>Phone Number:</strong> {{ contact.phone_number }}</p>
+          <p><strong>Address:</strong> {{ contact.address }}</p>
+          <p><strong>Company:</strong> {{ contact.company_name }}</p>
+          <p><strong>Birthday:</strong> {{ contact.birthday }}</p>
+          <p><strong>Category:</strong> {{ contact.get_category_display }}</p>
+          <p><strong>Shared By:</strong> {{ contact.profile.user.username }}</p>
+          <p><strong>Last Modified:</strong> {{ contact.last_modified }}</p>
+          {% if is_owner %}
+          <div class="btn-group">
+            <a class="btn btn-primary" href="{% url 'update_contact' contact.id %}">
+              Update Contact
+            </a>
+            <a class="btn btn-danger" href="{% url 'delete_contact' contact.id %}">
+              Delete Contact
+            </a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

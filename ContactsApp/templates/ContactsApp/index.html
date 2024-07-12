@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'ContactsApp/css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid mt-5 p-5">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title">Contacts</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Total Contacts: <span id="total">{{ total_contacts }}</span></p>
+          <a class="btn btn-primary" href="{% url 'add_contact' %}">
+            Add Contact
+          </a>
+          <!-- Searching Option -->
+          <form id="search-form" class="form-inline my-3">
+            <div class="input-group">
+              <input
+                id="search-input"
+                class="form-control"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+          </form>
+      
+          <!-- Filtering Option -->
+          <div class="dropdown d-inline-block">
+            <button
+              class="btn btn-primary dropdown-toggle"
+              type="button"
+              id="sortDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Sort By
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+              <li>
+                <a class="dropdown-item" href="{% url 'home' %}?sort=first_name">
+                  Name
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'home' %}?sort=last_modified">
+                  Last Modified
+                </a>
+              </li>
+              <!-- Add more sorting options as needed -->
+            </ul>
+          </div>
+      
+          <!-- Filter By Category -->
+          <div class="dropdown d-inline-block">
+            <button
+              class="btn btn-primary dropdown-toggle"
+              type="button"
+              id="filterDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Filter By Category
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+              <li>
+                <a class="dropdown-item" href="{% url 'home' %}?category=home">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'home' %}?category=family">
+                  Family
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'home' %}?category=friends">
+                  Friends
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'home' %}?category=work">
+                  Work
+                </a>
+              </li>
+            </ul>
+          </div>
+      
+          <!-- Birthday and Favourites -->
+          <div class="dropdown d-inline-block">
+            <button
+              class="btn btn-primary dropdown-toggle"
+              type="button"
+              id="filterDropdown2"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Filter Contacts
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="filterDropdown2">
+              <li>
+                <a class="dropdown-item" href="{% url 'home' %}?favourite=True">
+                  Favourites
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'home' %}?birthday=True">
+                  Birthdays
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+
+      <div class="table-responsive">
+        <table class="table table-hover table-dark table-striped">
+          <!-- Table header ... -->
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <!-- Table body -->
+          <tbody>
+            {% for contact in contacts %}
+            <tr style="cursor: pointer;">
+              <td>{{ contact.first_name }} {{ contact.last_name }}</td>
+              <td>{{ contact.phone_number }}</td>
+              <td>{{ contact.email }}</td>
+              <td>
+                <a href="{% url 'contact' contact.id %}" class="btn btn-primary btn-sm">View</a>
+                <a href="{% url 'update_contact' contact.id %}" class="btn btn-primary btn-sm">Update</a>
+                <a href="{% url 'delete_contact' contact.id %}" class="btn btn-danger btn-sm">Delete</a>
+              </td>
+            </tr>
+            {% if contact.address or contact.date_of_birth or contact.category %}
+            <tr class="extra-details" style="display: none;">
+              <td colspan="4">
+                {% if contact.address %}
+                <strong>Address:</strong> {{ contact.address }}<br>
+                {% endif %}
+                {% if contact.birthday %}
+                <strong>Date of Birth:</strong> {{ contact.birthday }}<br>
+                {% endif %}
+                {% if contact.category %}
+                <strong>Category:</strong> {{ contact.category }}<br>
+                {% endif %}
+                {% if contact.company_name %}
+                <strong>Company:</strong> {{ contact.company_name }}<br>
+                {% endif %}
+              </td>
+            </tr>
+            {% endif %}
+            {% empty %}
+            <tr>
+              <td colspan="4">No contacts found.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js_files %}
+  <script src="{% static 'ContactsApp/js/index.js' %}"></script>
+{% endblock %}

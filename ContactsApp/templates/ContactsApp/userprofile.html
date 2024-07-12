@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{{ profile.user.username }} - Profile
+{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card mb-3">
+    <div class="card-header bg-primary text-white">
+      <h5 class="card-title">{{ profile.user.username }} - Profile</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          {% if profile.photo %}
+          <img src="{{ profile.photo.url }}" alt="{{ profile.user.username }}'s Profile Photo" class="img-fluid rounded">
+          {% else %}
+            <img src="{% static 'default.jpg' %}" alt="Default Profile Photo" class="img-fluid rounded">
+          {% endif %}
+        </div>
+        <div class="col-md-8">
+          <p><strong>Name:</strong> {{ profile.user.first_name }} {{ profile.user.last_name }}</p>
+          <p><strong>Username:</strong> {{ profile.user.username }}</p>
+          <p><strong>Email:</strong> {{ profile.user.email }}</p>
+          <p><strong>Last Modified:</strong> {{ profile.date_modified }}</p>
+
+          <div class="btn-group">
+            <a class="btn btn-primary" href="{% url 'update_profile' %}">
+              Update Profile
+            </a>
+            <a class="btn btn-danger" href="{% url 'change_password' %}">
+              Change Password
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+.alert {
+  position: fixed;
+  top: 20px;
+  right: 10px;
+  z-index: 9999;
+  animation: fadeOut 10s forwards;
+}
+
+body {
+  background-color: #222;
+  color: #fff;
+}
+
+.alert {
+  background-color: #333;
+  color: #fff;
+}
+
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

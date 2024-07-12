@@ -1,0 +1,81 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky">
+  <div class="container">
+    <!-- Website logo -->
+    <a class="navbar-brand" href="{% url 'home' %}">
+      <!-- Font Awesome logo -->
+      <i class="fas fa-address-book"></i>
+      <span class="font-semibold">ContactsBook</span>
+    </a>
+
+    <!-- Navbar toggler for mobile -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar items -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        {% if request.user.is_authenticated %}
+        <!-- User Dropdown -->
+        <li class="nav-item dropdown mr-3">
+          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="fas fa-user"></i> Welcome {{ profile.user.username|title }}
+          </a>
+          <div class="dropdown-menu dropdown-menu-end">
+            <a href="{% url 'userprofile' %}" class="dropdown-item">
+              <i class="fa-regular fa-user-circle"></i></i> Profile
+            </a>
+            <a href="{% url 'update_profile' %}" class="dropdown-item">
+              <i class="fas fa-user-circle"></i> Update Profile
+            </a>
+            <a href="{% url 'change_password' %}" class="dropdown-item">
+              <i class="fas fa-cog"></i> Update Password
+            </a>
+          </div>
+        </li>
+        <!-- Utils Dropdown -->
+        <li class="nav-item dropdown mr-3">
+          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="fa-solid fa-toolbox"></i> Utils
+          </a>
+          <div class="dropdown-menu dropdown-menu-end">
+            <a href="{% url 'export_contacts' %}" class="dropdown-item">
+              <i class="fas fa-file-export"></i> Export Contacts
+            </a>
+            <a href="{% url 'import_contacts' %}" class="dropdown-item">
+              <i class="fas fa-file-import"></i> Import Contacts
+            </a>
+            <a href="{% url 'delduplicates' %}" class="dropdown-item">
+              <i class="fas fa-trash-alt"></i> Delete Duplicates
+            </a>
+          </div>
+        </li>
+        <!-- Logout Link -->
+        <li class="nav-item">
+          <a href="{% url 'logout' %}" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+        {% else %}
+        <!-- Login and SignUp -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
