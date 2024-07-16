@@ -41,7 +41,7 @@ To set up and run the Contacts App on your local machine, follow the steps below
 1. Clone the repository to your local machine and Change Directory:
 
 ```
-git clone https://github.com/VaishnavSherla/Contacts-App.git
+git clone https://github.com/VoremHrushiKiran/Contacts-App.git
 cd Contacts-App
 ```
 2. Create Virtual Env and Install Requirements:
