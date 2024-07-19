@@ -104,4 +104,4 @@ python manage.py generatedata
 ```
 ### Feedback
 For feedback or any inquiries, feel free to contact and connect with me on LinkedIn:
-[LinkedIn]([https://www.linkedin.com/in/hrushi-kiran-vorem-a204a428b/])
+[LinkedIn](https://www.linkedin.com/in/hrushi-kiran-vorem-a204a428b/)
