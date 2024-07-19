@@ -102,6 +102,3 @@ If you want to populate the database with sample data for testing, use the follo
 ```
 python manage.py generatedata
 ```
-### Feedback
-For feedback or any inquiries, feel free to contact and connect with me on LinkedIn:
-[LinkedIn](https://www.linkedin.com/in/hrushi-kiran-vorem-a204a428b/)
